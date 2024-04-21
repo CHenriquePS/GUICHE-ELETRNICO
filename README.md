@@ -22,4 +22,5 @@ conjunto para aprimorar a qualidade do atendimento, alinhando-se aos princípios
 projeto não apenas atende às necessidades imediatas identificadas, mas também sinaliza o
 compromisso contínuo com a excelência no atendimento médico, consolidando-se como uma
 iniciativa pioneira e benéfica para a comunidade.
+
 Palavras-chave: Guichê Eletrônico. Acessibilidade. Otimização de atendimento.
