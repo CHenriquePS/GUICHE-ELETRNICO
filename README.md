@@ -20,7 +20,7 @@ solução promissora para superar as limitações identificadas. A utilização 
 modo de voz e impressão de senhas coloridas e descritas em braille, representa um avanço significativo na modernização do
 atendimento, promovendo uma experiência mais ágil e humanizada para os usuários com necessidades específicas. A busca por
 soluções inovadoras e a aplicação de tecnologias refletem um esforço
-conjunto para aprimorar a qualidade do atendimento, alinhando-se aos princípios de bem-estar. C<strong>Conclusão</strong>: Este
+conjunto para aprimorar a qualidade do atendimento, alinhando-se aos princípios de bem-estar. <strong>Conclusão</strong>: Este
 projeto não apenas atende às necessidades imediatas identificadas, mas também sinaliza o
 compromisso contínuo com a excelência no atendimento médico, consolidando-se como uma
 iniciativa pioneira e benéfica para a comunidade.
