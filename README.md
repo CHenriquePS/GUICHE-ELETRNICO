@@ -1,5 +1,5 @@
 # GUICHÊ ELETRÔNICO
-Autores:
+Autores: Cleiton Henrique Penteado Souza; Kelvin Cristian Gomes; Wellinton Henrique Castanha
 
 <p align="justify">
 <strong>Introdução</strong>: Diante do problema da comunidade em geral em um ambulatório médico, foi desenvolvido um
