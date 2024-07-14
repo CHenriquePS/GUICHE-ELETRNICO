@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guichê Eletrônico - Urgência</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Guichê Eletrônico - Urgência</h1>
+        <p>Olá, {{ nome }}!</p>
+        <p>Sua senha é: <strong>{{ senha }}</strong></p>
+        <p>Urgência: {{ urgencia }}</p>
+        <img src="{{ url_for('static', filename='images/' + urgencia + '.png') }}" alt="Ficha {{ urgencia }}">
+        <a href="/">Voltar</a>
+    </div>
+</body>
+</html>
