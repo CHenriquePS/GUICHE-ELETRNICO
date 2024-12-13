@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Guiche</string>
+    <string name="emitir_ficha">Emitir Ficha</string>
+    <string name="gestante">Gestante</string>
+    <string name="feminino">Feminino</string>
+    <string name="idade">Idade</string>
+    <string name="masculino">Masculino</string>
+    <string name="cpf">CPF</string>
+    <string name="nome">Nome</string>
+</resources>

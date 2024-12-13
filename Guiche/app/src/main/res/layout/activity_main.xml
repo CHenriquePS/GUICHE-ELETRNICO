@@ -1,0 +1,108 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:inputType="textPersonName"
+            android:autofillHints=""
+            android:minHeight="48dp"
+            tools:ignore="Autofill,VisualLintTextFieldSize" />
+
+        <EditText
+            android:id="@+id/etCpf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CPF"
+            android:inputType="text"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,VisualLintTextFieldSize" />
+
+        <EditText
+            android:id="@+id/etIdade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Idade"
+            android:inputType="number"
+            android:minHeight="48dp"
+            tools:ignore="VisualLintTextFieldSize" />
+
+        <RadioGroup
+            android:id="@+id/rgSexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbMasculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculino" />
+
+            <RadioButton
+                android:id="@+id/rbFeminino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminino" />
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/cbGestante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestante"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnEmitirFicha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Emitir Ficha"
+            tools:ignore="VisualLintButtonSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="#f1f1f1"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvFicha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ficha Gerada"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="#cccccc" />
+
+        <TextView
+            android:id="@+id/tvNivelUrgencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nível de Urgência: Normal"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="#eeeeee" />
+    </LinearLayout>
+
+</LinearLayout>
