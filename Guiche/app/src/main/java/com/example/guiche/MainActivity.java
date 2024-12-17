@@ -42,13 +42,35 @@ public class MainActivity extends AppCompatActivity {
         Button btnEmitirFicha = findViewById(R.id.btnEmitirFicha);
         tvFicha = findViewById(R.id.tvFicha);
         tvNivelUrgencia = findViewById(R.id.tvNivelUrgencia);
-
+        etCpf.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
         rgSexo.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.rbFeminino) {
                 cbGestante.setVisibility(View.VISIBLE);
             } else {
                 cbGestante.setVisibility(View.GONE);
                 cbGestante.setChecked(false);
+            }
+        });
+
+        etNome.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int after) {
+                String nome = charSequence.toString();
+                if (!nome.isEmpty()) {
+                    etNome.removeTextChangedListener(this);
+                    String formattedName = nome.toUpperCase();
+                    etNome.setText(formattedName);
+                    etNome.setSelection(formattedName.length());
+                    etNome.addTextChangedListener(this);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
 
@@ -60,12 +82,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int after) {
                 String text = charSequence.toString();
-                if (text.length() == 3 || text.length() == 7) {
-                    etCpf.setText(text + ".");
-                    etCpf.setSelection(etCpf.getText().length());
-                } else if (text.length() == 11) {
-                    etCpf.setText(text.substring(0, 11) + "-");
-                    etCpf.setSelection(etCpf.getText().length());
+                if (text.length() > 11) {
+                    text = text.substring(0, 11);
+                    etCpf.setText(text);
+                    etCpf.setSelection(text.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        etIdade.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int after) {
+                String idade = charSequence.toString();
+                if (idade.length() > 3) {
+                    idade = idade.substring(0, 3);
+                    etIdade.setText(idade);
+                    etIdade.setSelection(idade.length());
                 }
             }
 
@@ -78,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             String nome = etNome.getText().toString().trim();
             String cpf = etCpf.getText().toString().trim();
             String idadeStr = etIdade.getText().toString().trim();
-
             if (nome.isEmpty() || cpf.isEmpty() || idadeStr.isEmpty() || rgSexo.getCheckedRadioButtonId() == -1) {
                 Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show();
                 return;

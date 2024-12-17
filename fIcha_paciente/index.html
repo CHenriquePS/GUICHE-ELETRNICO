@@ -4,14 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Fichas Médicas</title>
-    <link rel="stylesheet" href="style.css"> <!-- Arquivo CSS separado -->
-    <script type="module" src="script.js" defer></script> <!-- Arquivo JS separado -->
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Paciente</h1>
-        <div id="patientList" class="patient-list">
-            <!-- Pacientes serão listados aqui -->
+        <header>
+            <h1>Pacientes</h1>
+        </header>
+        <main id="patientList" class="patient-list">
+        </main>
+    </div>
+
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2 id="modalName"></h2>
+            <p><strong>CPF:</strong> <span id="modalCPF"></span></p>
+            <p><strong>Idade:</strong> <span id="modalIdade"></span></p>
+            <p><strong>Urgência:</strong> <span id="modalUrgencia"></span></p>
+            <textarea id="modalSintomas" placeholder="Sintomas"></textarea>
+            <textarea id="modalDiagnostico" placeholder="Diagnóstico"></textarea>
+            <button id="saveButton">Salvar</button>
         </div>
     </div>
 </body>

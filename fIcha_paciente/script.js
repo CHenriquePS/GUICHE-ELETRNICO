@@ -1,8 +1,6 @@
-// Importação dos módulos Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getFirestore, collection, getDocs, updateDoc, doc, orderBy } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 
-// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyD7bT6cBa0GTUK4S5Gxuh2BRLt82c0jM6k",
     authDomain: "guicheapp.firebaseapp.com",
@@ -12,65 +10,90 @@ const firebaseConfig = {
     appId: "1:403902467159:android:f2e67d3c04e0d80ef4e712"
 };
 
-// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-// Referência à coleção "fichas"
 const fichasRef = collection(db, "fichas");
 
-// Função para buscar e exibir os pacientes
+const patientList = document.getElementById("patientList");
+const modal = document.getElementById("patientModal");
+const closeModal = document.getElementById("closeModal");
+const saveButton = document.getElementById("saveButton");
+
+let selectedPatientId = null;
+
 async function fetchPatients() {
     try {
         const querySnapshot = await getDocs(fichasRef);
-        const patientList = document.getElementById("patientList");
-        patientList.innerHTML = ""; // Limpa a lista
+        patientList.innerHTML = "";
 
-        querySnapshot.forEach(doc => {
-            const data = doc.data();
-            const patientCard = document.createElement("div");
-            patientCard.className = "patient-card";
-
-            // Formata a urgência para exibir como texto
-            const urgenciaCor = data.urgencia === "Emergencial" ? "#f44336" :
-                               data.urgencia === "Urgente" ? "#ff9800" : "#4caf50";
-
-            patientCard.innerHTML = `
-                <h3 style="color: ${urgenciaCor}">${data.nome}</h3>
-                <p><strong>CPF:</strong> ${data.cpf}</p>
-                <p><strong>Idade:</strong> ${data.idade}</p>
-                <p><strong>Urgência:</strong> ${data.urgencia}</p>
-                <textarea id="sintomas-${doc.id}" placeholder="Sintomas"></textarea>
-                <textarea id="diagnostico-${doc.id}" placeholder="Diagnóstico"></textarea>
-                <button onclick="saveData('${doc.id}')">Salvar Informações</button>
-            `;
-
-            patientList.appendChild(patientCard);
+        querySnapshot.forEach(docSnapshot => {
+            const data = docSnapshot.data();
+            const button = createPatientButton(data, docSnapshot.id);
+            patientList.appendChild(button);
         });
     } catch (error) {
-        console.error("Erro ao buscar pacientes: ", error);
+        console.error("Erro ao buscar pacientes:", error);
     }
 }
 
-// Função para salvar os sintomas e diagnóstico no Firestore
-async function saveData(patientId) {
-    const sintomas = document.getElementById(`sintomas-${patientId}`).value;
-    const diagnostico = document.getElementById(`diagnostico-${patientId}`).value;
+function createPatientButton(data, id) {
+    const button = document.createElement("button");
+    button.className = "patient-button " + getUrgencyClass(data.urgencia);
+    button.textContent = data.nome;
+    button.addEventListener("click", () => openModal(data, id));
+    return button;
+}
 
-    const patientDoc = doc(db, "fichas", patientId);
+function getUrgencyClass(urgency) {
+    const urgencyClasses = {
+        "Emergencial": "emergencial",
+        "Urgente": "urgente",
+        "Normal": "normal"
+    };
+    return urgencyClasses[urgency] || "normal";
+}
+
+function openModal(data, id) {
+    selectedPatientId = id;
+    document.getElementById("modalName").textContent = data.nome;
+    document.getElementById("modalCPF").textContent = data.cpf;
+    document.getElementById("modalIdade").textContent = data.idade;
+    document.getElementById("modalUrgencia").textContent = data.urgencia;
+    document.getElementById("modalSintomas").value = data.sintomas || "";
+    document.getElementById("modalDiagnostico").value = data.diagnostico || "";
+    modal.style.display = "flex";
+}
+
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+    resetModal();
+});
+
+saveButton.addEventListener("click", async () => {
+    const sintomas = document.getElementById("modalSintomas").value;
+    const diagnostico = document.getElementById("modalDiagnostico").value;
+
+    if (!selectedPatientId) return;
 
     try {
-        await updateDoc(patientDoc, {
-            sintomas: sintomas,
-            diagnostico: diagnostico
-        });
+        await updateDoc(doc(db, "fichas", selectedPatientId), { sintomas, diagnostico });
         alert("Informações salvas com sucesso!");
-        fetchPatients(); // Atualiza a lista de pacientes
+        closeModal.click();
+        fetchPatients();
     } catch (error) {
-        console.error("Erro ao salvar informações: ", error);
-        alert("Erro ao salvar informações. Tente novamente.");
+        console.error("Erro ao salvar:", error);
+        alert("Erro ao salvar as informações. Tente novamente.");
     }
+});
+
+function resetModal() {
+    document.getElementById("modalName").textContent = "";
+    document.getElementById("modalCPF").textContent = "";
+    document.getElementById("modalIdade").textContent = "";
+    document.getElementById("modalUrgencia").textContent = "";
+    document.getElementById("modalSintomas").value = "";
+    document.getElementById("modalDiagnostico").value = "";
+    selectedPatientId = null;
 }
 
-// Carrega a lista de pacientes ao iniciar
-fetchPatients();
+document.addEventListener("DOMContentLoaded", fetchPatients);
